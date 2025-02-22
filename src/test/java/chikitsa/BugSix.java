@@ -59,7 +59,7 @@ public class BugSix {
 	        WebElement patientsClick = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Patients']")));
 	        patientsClick.click();
 
-	        // Select Role as Receptionist
+	       
 	        WebElement roleDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@aria-labelledby='roles roles']")));
 	        roleDropdown.click();
 	        WebElement receptionistOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[@data-value='receptionist']")));
@@ -104,7 +104,6 @@ public class BugSix {
 	        			    By.xpath("//div[@role='combobox' and contains(@id, 'nursingStation')]")));
 	        			nursingStationDropdown.click();
 
-	        			// Select "Abhishek" from the options
 	        			WebElement abhishekOption = wait.until(ExpectedConditions.elementToBeClickable(
 	        			    By.xpath("//li[@role='option' and text()='Abhishek']")));
 	        			abhishekOption.click();
@@ -188,12 +187,12 @@ public class BugSix {
 
 	        	        // Check if the button is disabled
 	        	        if (!saveButton.isEnabled()) {
-	        	            System.out.println("❌ Test Failed: Save Details button is disabled for a normal type of room.");
+	        	            System.out.println("Test Failed: Save Details button is disabled for a normal type of room.");
 	        	            Assert.fail("Save Details button should be enabled for a normal type of room, but it's disabled.");
 	        	        } else {
 	        	            // Click the button
 	        	            saveButton.click();
-	        	            System.out.println("✅ Test Passed: Save Details button is enabled and clicked successfully.");
+	        	            System.out.println("Test Passed: Save Details button is enabled and clicked successfully.");
 	        	        }
 
 	        	        

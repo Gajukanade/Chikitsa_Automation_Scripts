@@ -1,24 +1,17 @@
 package chikitsa;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-
 public class BugFive {
-	
+
     WebDriver driver;
     WebDriverWait wait;
 
@@ -66,35 +59,38 @@ public class BugFive {
         receptionistOption.click();
 
         System.out.println("Receptionist role selected successfully!");
-        
+
+        // Navigate to IPD
         WebElement IpdClick = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='IPD']")));
         IpdClick.click();
 
-        
+        // Admit a patient
         WebElement AdmitPatient = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Admit Patient']")));
         AdmitPatient.click();
-        
+
+        // Click "Payer Details"
         WebElement payerDetailClick = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Payer Details']")));
         payerDetailClick.click();
-        
+
+        // Enter Payer Name
         WebElement InputName = wait.until(ExpectedConditions.elementToBeClickable(By.id("payerDetails.payerName")));
         InputName.sendKeys("LIC");
-        
-      Thread.sleep(3000);
 
-      WebElement clearAllButton = wait.until(ExpectedConditions.presenceOfElementLocated(
-          By.xpath("//button[text()='Clear All']")
-      ));
+        // Wait before clicking "Clear All"
+        Thread.sleep(3000);
 
-      // Scroll into view
-      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", clearAllButton);
+        // Scroll and click "Clear All"
+        WebElement clearAllButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[text()='Clear All']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", clearAllButton);
+        wait.until(ExpectedConditions.elementToBeClickable(clearAllButton)).click();
 
-      // Click the button after scrolling
-      wait.until(ExpectedConditions.elementToBeClickable(clearAllButton)).click();
-      
-      System.out.println("Not clearing green tick.");
-    
+        System.out.println("Not clearing green tick.");
+    }
 
-
-}
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }
